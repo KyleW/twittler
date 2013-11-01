@@ -1,3 +1,25 @@
+* {
+	font-family:helvetica;
+}
+
+h2, div, button {
+	margin:15px; 
+}
+
+h2 {
+	border-bottom: 2px solid black;
+}
+
+#timeline {
+	display: none;
+}
+
 .tweet {
-	background-color: gray;
+	margin:8px;
+	font-size:1.2em;
+
+}
+
+button{
+
 }

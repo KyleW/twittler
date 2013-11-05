@@ -1,25 +1,62 @@
 * {
-	font-family:helvetica;
+	font-family:arial;
+
 }
 
-h2, div, button {
-	margin:15px; 
+.title{
+	background-color: black;
+	color: white;
+	text-align: center;
 }
 
-h2 {
-	border-bottom: 2px solid black;
+#tlTitle{
+	display:none;
 }
 
 #timeline {
 	display: none;
 }
 
+.mainBox{
+
+}
+
+.tlBox{
+	float: right;
+}
+
+.user{
+  font-weight: bold;
+  font-size:1.2em;
+}
+
+.msg{
+font-size: 1.2em;
+}
+
+.date{
+	color:blue;
+	text-align: right;
+}
+
 .tweet {
-	margin:8px;
-	font-size:1.2em;
+	margin:20px;
+	display:none;
+	border-bottom: 2px solid gray;
+}
+
+.tweetBox{
+	margin-left:10%;
+	width: 80%;
 
 }
 
 button{
-
+	font-weight: bold;
+	font-size: 1.2em;
+	text-align: center;
+	width:10%;
+	margin-left:45%; 
+	background-color: yellow;
+	margin-bottom: 15px;
 }

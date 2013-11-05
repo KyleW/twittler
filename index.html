@@ -1,76 +1,82 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<script src="jquery.js"></script>
-		<script src="data_generator.js"></script>
-		<link href="styles.css" rel="stylesheet">
-	</head>
-	<body>
-		
+<head>
+	<script src="jquery.js"></script>
+	<script src="data_generator.js"></script>
+	<link href="styles.css" rel="stylesheet">
+</head>
 
-		<div id='timeline'>
-			<h2>Timeline</h2>
-		</div>
+<body>
 
-		<br>
-		
-		<div id='main'>
-			<h2>Tweets</h2>
-		</div>
-		<br>
-		<button><h2>Check for more tweets</h2></button>
+		<!-- 	<h2 class="title">Tweets</h2> -->
+	<div id="tlBox">
+	  <h1 class="title" id="tlTitle">Twittler Timeline</h1>
+	  <table id='timeline' class='tweetBox'></table>
+	</div>
 
-		<script>
-			var getTweet = function(index,location,prepend){
-				    var tweet = streams.home[index];
-	      		var $tweet = $('<div class="tweet"></div>');
-	      		$tweet.text('@' + tweet.user + ': ' + tweet.message+' ['+tweet.created_at+"]").data({'user':tweet.user});    	  
-	      		if (prepend){
-	 	      		$tweet.prependTo(location);
+	<h1 class="title">Twittler</h1>		
+	<button>Update Tweets</button>
+	<div id="mainBox">
+		<table id='main' class='tweetBox'></table>	
+	</div>
 
-	      		} else {
-	      			$tweet.appendTo(location);
-	      		}
-			};
+	<script>
+		var getTweet = function(index,location,prepend){
+			var tweet = streams.home[index];
+			var $tweet = $('<tr class="tweet"></tr>');
+			var $user=$('<td class="user"></td>');
+			$user.text(tweet.user+": ");
+			var $msg=$('<td class="msg"></td>');
+			$msg.text(tweet.message);
+			var $date=$('<td class="date"></td>')
+			$date.text(" ["+tweet.created_at+"]");
+			$tweet.append($user).append($msg).append($date);
+			$tweet.data({'user':tweet.user});    	  
+			if (prepend){
+				$tweet.prependTo(location);
+			} else {
+				$tweet.appendTo(location);
+			}
+			$tweet.slideDown();
+		};
 
 
-			$(document).ready(function(){
-	      	//Given JS to display list of tweets
-	      	var $body = $('#main');
-	      	var index = streams.home.length - 1;
-	      	while(index >= 0){
-	      		getTweet(index,$body);
-	      		index -= 1;
-	      	}
-
-	        // Display more tweets on button click
-	        $('button').on('click',function(){
-	        	var current = $('#main div').length;
-        	  var available = streams.home.length; 
-		      	while(current < available){
-		      		getTweet(current,$body,1);
-		      		current += 1;
-		      	}
-		      	$('#main h2').remove();
-		      	$body.prepend($('<h2>Tweets</h2>'));
-	        });
-
-	        // Clicking on a tweet
-	        $('#main').on('click','div',function(){
-	      	  var tlUser = $(this).data("user");
-	      	  var $timeline = $('#timeline');
-	      	  $('#timeline div').remove();
-	      	  var index = streams.home.length - 1;
+		$(document).ready(function(){
+		      	//Given JS to display list of tweets
+		      	var $body = $('#main');
+		      	var index = streams.home.length - 1;
 		      	while(index >= 0){
-		      		var tweet = streams.home[index];
-		      		if (tweet.user === tlUser){
-	  	      		getTweet(index,$timeline);		
-		      		}
+		      		getTweet(index,$body);
 		      		index -= 1;
 		      	}
-		      	$timeline.slideDown();      	
-	      	});
-	      });
-	  </script>
-	</body>
+
+		        // Display more tweets on button click
+		        $('button').on('click',function(){
+		        	var current = $('#main div').length;
+		        	var available = streams.home.length; 
+		        	while(current < available){
+		        		getTweet(current,$body,1);
+		        		current += 1;
+		        	}
+		        });
+
+		        // Clicking on a tweet
+		        $('#main').on('click','.tweet',function(){
+		        	var tlUser = $(this).data("user");
+		        	var $timeline = $('#timeline');
+		        	$('#timeline tr').remove();
+		        	var index = streams.home.length - 1;
+		        	while(index >= 0){
+		        		var tweet = streams.home[index];
+		        		if (tweet.user === tlUser){
+		        			getTweet(index,$timeline);		
+		        		}
+		        		index -= 1;
+		        	}
+		        	$('#tlTitle').slideDown()
+		        	$timeline.slideDown();      	
+		        });
+		      });
+	</script>
+</body>
 </html>
